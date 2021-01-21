@@ -17,10 +17,21 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::prefix('article')->group(function(){
+    Route::post('/post', 'App\Http\Controllers\ArticlesController@writeArticle');
+    Route::post('/edit/{article_id}', 'App\Http\Controllers\ArticlesController@editArticle');
+    Route::delete('/delete/{article_id}', 'App\Http\Controllers\ArticlesController@deleteArticle');
+    Route::get('/', 'App\Http\Controllers\ArticlesController@getArticles');
+    Route::get('/{article_id}', 'App\Http\Controllers\ArticlesController@getArticle');
+    Route::get('/{user_id}', 'App\Http\Controllers\ArticlesController@userArticles');
+});
 
-Route::post('/article/post', 'App\Http\Controllers\ArticlesController@writeArticle');
-Route::post('/article/edit/{article_id}', 'App\Http\Controllers\ArticlesController@editArticle');
-Route::delete('/article/delete/{article_id}', 'App\Http\Controllers\ArticlesController@deleteArticle');
-Route::get('/articles', 'App\Http\Controllers\ArticlesController@getArticles');
-Route::get('/article/{article_id}', 'App\Http\Controllers\ArticlesController@getArticle');
-Route::get('/article/{user_id}', 'App\Http\Controllers\ArticlesController@userArticles');
+Route::prefix('comment')->group(function(){
+    Route::post('/post', 'App\Http\Controllers\CommentController@writeComment');
+    Route::post('/edit/{article_id}', 'App\Http\Controllers\CommentController@editComment');
+    Route::delete('/delete/{article_id}', 'App\Http\Controllers\CommentController@deleteComment');
+    Route::get('/', 'App\Http\Controllers\CommentController@getComments');
+    Route::get('/{article_id}', 'App\Http\Controllers\CommentController@getComment');
+    Route::get('/{user_id}', 'App\Http\Controllers\CommentController@userComments');
+});
+
