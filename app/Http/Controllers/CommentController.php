@@ -39,9 +39,9 @@ class CommentController extends Controller
             if($comment->update()){
              return response($comment);
             }
-             return response([
-             "message"=>"Something went wrong"
-             ], 200);
+            return response([
+            "message"=>"Something went wrong"
+            ], 200);
         }
         return response([
             "message"=>'comment not found'
@@ -54,7 +54,6 @@ class CommentController extends Controller
     public function deleteComment(Request $request, $comment_id){
         $comment = Comment::where('id', $comment_id)->first();
         if ($comment) {
-            $comment->body= $request['body'];
             if($comment->delete()){
              return response($comment);
             }

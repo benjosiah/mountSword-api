@@ -17,44 +17,78 @@ class ArticlesController extends Controller
         $article->body= $request['body'];
         $article->tags= $request['tags'];
         // $article->user_id = $request['user_id'];
-        $article->save();
-        return response([$article], 200);
+        if ($article->save()) {
+            return response([$article], 200);
+        }
+       
+        return response([
+            "message"=>"Something went wrong"
+        ], 200);
     }
 
     //Edit Articles
 
     public function editArticle(Request $request, $article_id){
+       
         $article = Article::where('id', $article_id)->first();
-        $article->tittle = $request['tittle']??$article->tittle;
-        $article->cover_image = $request['cover_image']??$article->cover_image;
-        $article->tumblr= $request['tumblr']??$article->tumblr;
-        $article->body= $request['body']??$article->body;
-        $article->tags= $request['tags']??$article->tags;
-        // $article->user_id = $request['user_id'];
-        $article->update();
-        return response($article);
+        if ($article) {
+            $article->tittle = $request['tittle']??$article->tittle;
+            $article->cover_image = $request['cover_image']??$article->cover_image;
+            $article->tumblr= $request['tumblr']??$article->tumblr;
+            $article->body= $request['body']??$article->body;
+            $article->tags= $request['tags']??$article->tags;
+            // $article->user_id = $request['user_id'];
+            if($article->update()){
+             return response($article);
+            }
+            return response([
+            "message"=>"Something went wrong"
+            ], 200);
+        }
+        return response([
+            "message"=>'comment not found'
+        ], 404);
+      
     }
 
     //Delete Articles
 
     public function deleteArticle(Request $request, $article_id){
         $article = Article::where('id', $article_id)->first();
-        $article->comment;
-        $article->delete();
-        return response($article);
+        if ($article) {
+            if($article->delete()){
+
+             return response($article);
+            }
+             return response([
+             "message"=>"Something went wrong"
+             ], 200);
+        }
+        return response([
+            "message"=>'comment not found'
+        ], 404);
     }
 
     //Get Articles
     public function getArticles(){
         $articles = Article::all();
-        return response($articles);
+        if($articles) {
+            return response($articles);
+        }
+        return reponse([]);
     }
 
     // Single Article
     public function getArticle($article_id){
         $article = Article::where('id', $article_id)->first();
-        $article->comment;
-        return response($article);
+        if ($article) {
+            $article->comment;
+            return response($article);
+        }else{
+            return response([
+                "message"=>'comment not found'
+            ], 404);
+        }
     }
 
     // A user's Articles 
