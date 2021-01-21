@@ -39,6 +39,7 @@ class ArticlesController extends Controller
 
     public function deleteArticle(Request $request, $article_id){
         $article = Article::where('id', $article_id)->first();
+        $article->comment;
         $article->delete();
         return response($article);
     }
@@ -52,6 +53,7 @@ class ArticlesController extends Controller
     // Single Article
     public function getArticle($article_id){
         $article = Article::where('id', $article_id)->first();
+        $article->comment;
         return response($article);
     }
 

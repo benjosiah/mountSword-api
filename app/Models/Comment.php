@@ -10,8 +10,8 @@ class Comment extends Model
 {
     use HasFactory;
 
-    public function user(){
-        return $this->belongTo('Article');
+    public function article(){
+        return $this->belongsTo('App\Models\Article');
     }
     
 }

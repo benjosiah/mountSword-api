@@ -27,11 +27,11 @@ Route::prefix('article')->group(function(){
 });
 
 Route::prefix('comment')->group(function(){
-    Route::post('/post', 'App\Http\Controllers\CommentController@writeComment');
-    Route::post('/edit/{article_id}', 'App\Http\Controllers\CommentController@editComment');
-    Route::delete('/delete/{article_id}', 'App\Http\Controllers\CommentController@deleteComment');
-    Route::get('/', 'App\Http\Controllers\CommentController@getComments');
-    Route::get('/{article_id}', 'App\Http\Controllers\CommentController@getComment');
+    Route::post('/post/{article_id}', 'App\Http\Controllers\CommentController@writeComment');
+    Route::post('/edit/{comment_id}', 'App\Http\Controllers\CommentController@editComment');
+    Route::delete('/delete/{comment_id}', 'App\Http\Controllers\CommentController@deleteComment');
+    Route::get('/all/{article_id}', 'App\Http\Controllers\CommentController@getComments');
+    Route::get('/{comment_id}', 'App\Http\Controllers\CommentController@getComment');
     Route::get('/{user_id}', 'App\Http\Controllers\CommentController@userComments');
 });
 

@@ -16,6 +16,6 @@ class Article extends Model
     }
 
     public function comment(){
-        return $this->hasMany('Comment');
+        return $this->hasMany('App\Models\Comment');
     }
 }
