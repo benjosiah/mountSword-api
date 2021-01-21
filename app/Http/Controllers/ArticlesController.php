@@ -73,6 +73,9 @@ class ArticlesController extends Controller
     public function getArticles(){
         $articles = Article::all();
         if($articles) {
+            foreach ($articles as $article) {
+                $article->comment;
+            }
             return response($articles);
         }
         return reponse([]);
@@ -83,6 +86,7 @@ class ArticlesController extends Controller
         $article = Article::where('id', $article_id)->first();
         if ($article) {
             $article->comment;
+            $article->likes;
             return response($article);
         }else{
             return response([

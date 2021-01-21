@@ -23,7 +23,7 @@ Route::prefix('article')->group(function(){
     Route::delete('/delete/{article_id}', 'App\Http\Controllers\ArticlesController@deleteArticle');
     Route::get('/', 'App\Http\Controllers\ArticlesController@getArticles');
     Route::get('/{article_id}', 'App\Http\Controllers\ArticlesController@getArticle');
-    Route::get('/{user_id}', 'App\Http\Controllers\ArticlesController@userArticles');
+    // Route::get('/{user_id}', 'App\Http\Controllers\ArticlesController@userArticles');
 });
 
 Route::prefix('comment')->group(function(){
@@ -32,6 +32,13 @@ Route::prefix('comment')->group(function(){
     Route::delete('/delete/{comment_id}', 'App\Http\Controllers\CommentController@deleteComment');
     Route::get('/all/{article_id}', 'App\Http\Controllers\CommentController@getComments');
     Route::get('/{comment_id}', 'App\Http\Controllers\CommentController@getComment');
-    Route::get('/{user_id}', 'App\Http\Controllers\CommentController@userComments');
+    // Route::get('/{user_id}', 'App\Http\Controllers\CommentController@userComments');
+});
+
+Route::prefix('like')->group(function(){
+    Route::post('/post/{article_id}', 'App\Http\Controllers\CommentController@writeComment');
+    Route::delete('/delete/{article_id}', 'App\Http\Controllers\CommentController@deleteComment');
+    Route::get('/all/{article_id}', 'App\Http\Controllers\CommentController@getComments');
+    // Route::get('/{user_id}', 'App\Http\Controllers\CommentController@userComments');
 });
 
